@@ -20,6 +20,10 @@ public class UserServiceImpl implements UserService {
     public User registerUser(UserRegistrationRequest request) {
 
         User user = new User();
+        boolean emailExists = userRepository.existsByEmail(request.getEmail());
+        if (emailExists) {
+            return null;
+        }
 
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
