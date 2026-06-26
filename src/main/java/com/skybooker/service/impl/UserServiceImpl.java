@@ -1,6 +1,7 @@
 package com.skybooker.service.impl;
 
 import org.springframework.stereotype.Service;
+import com.skybooker.exception.EmailAlreadyExistsException;
 
 import com.skybooker.dto.UserRegistrationRequest;
 import com.skybooker.entity.User;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         boolean emailExists = userRepository.existsByEmail(request.getEmail());
         if (emailExists) {
-            return null;
+            throw new EmailAlreadyExistsException("Email already registered");
         }
 
         user.setFirstName(request.getFirstName());
